@@ -8,7 +8,7 @@ namespace Special_RNGs {
 			std::fprintf(stderr, "error reading standard input\n");
 			std::exit(0);
 		}
-		enum { BUFF_SIZE = 4096 / sizeof(Word) };
+		enum { BUFF_SIZE = 1048576 / sizeof(Word) };
 		Word *pos, *end;
 		bool ended;
 		Word buffer[BUFF_SIZE];
@@ -19,7 +19,10 @@ namespace Special_RNGs {
 			end = &buffer[n];
 		}
 	public:
-		_stdin_reader() : ended(false) { refill(); }
+		_stdin_reader() : ended(false) {
+		    setvbuf(stdin, 0, _IOFBF, 1048576);
+		    refill();
+		}
 		Word read() { Word rv = *(pos++); if (pos == end) refill(); return rv; }
 	};
 	class RNG_stdin : public PractRand::RNGs::vRNG8 {
