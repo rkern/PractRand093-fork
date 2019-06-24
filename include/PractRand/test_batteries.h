@@ -55,6 +55,10 @@ namespace PractRand {
 			//no data transformations
 			ListOfTests get_expanded_core_tests();
 
+                        //just Pat5
+                        //no data transformations
+                        ListOfTests get_pat5_tests();
+
 			//extra tests
 			//recommended data transformations
 			//(which data transforms are recommended is a function of RNG metadata)

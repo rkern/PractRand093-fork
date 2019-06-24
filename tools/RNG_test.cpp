@@ -799,7 +799,7 @@ int main(int argc, char **argv) {
 		else if (!std::strcmp(argv[i], "-te")) {
 			if (params_left < 1) {std::printf("command line option %s must be followed by a value\n", argv[i]); std::exit(0);}
 			expanded = std::atoi(argv[++i]);
-			if (expanded < 0 || expanded > 1) {
+			if (expanded < 0 || expanded > 2) {
 				std::printf("invalid expanded test set value: -te %s\n", argv[i]);
 				std::exit(0);
 			}
@@ -939,7 +939,7 @@ int main(int argc, char **argv) {
 	std::printf("RNG = %s, seed = 0x", testing_rng->get_name().c_str());
 	if (seed >> 32) std::printf("%lx%08lx", long(seed >> 32), long((seed << 32) >> 32));
 	else std::printf("%lx", long(seed));
-	const char *test_set_names[2] = {"normal", "expanded"};
+	const char *test_set_names[3] = {"normal", "expanded", "pat5"};
 	const char *folding_names[3] = {"none", "standard", "extra"};
 	std::printf("\ntest set = %s, folding = %s", test_set_names[expanded], folding_names[folding]);
 	if (folding == 1) {
@@ -955,6 +955,8 @@ int main(int argc, char **argv) {
 		// speed in testing on 3.3 GHrz Core i5, tested on a very fast RNG -- name = description
 		// 5.6 GB / minute -- core = basic tests only, no folding
 	else if (folding == 0 && expanded == 0) tests = Tests::Batteries::get_core_tests();
+
+        else if (folding == 1 && expanded == 2) tests = Tests::Batteries::get_pat5_tests();
 
 		// 4.4 GB / minute -- standard = basic tests, smart folding
 	else if (folding == 1 && expanded == 0) tests = Tests::Batteries::get_standard_tests(testing_rng);

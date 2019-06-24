@@ -150,6 +150,12 @@ namespace PractRand {
 					NULL
 				);
 			}
+                        ListOfTests get_pat5_tests() {
+                                return Tests::ListOfTests(
+                                        new Tests::Pat5(),
+                                        NULL
+                                );
+                        }
 			ListOfTests get_expanded_standard_tests(const RNGs::vRNG *rng) {
 				return apply_standard_foldings(rng, get_expanded_core_tests);
 			}
